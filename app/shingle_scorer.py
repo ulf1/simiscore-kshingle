@@ -6,6 +6,9 @@ import kshingle
 
 
 class ShingleScorer:
+    """Computes similarity scores between senteces based on hashed k-shingles.
+    Default k is 3."""
+
     def __init__(self, max_k=3):
         self.max_k = max_k
 
