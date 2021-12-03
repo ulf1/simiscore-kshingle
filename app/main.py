@@ -5,7 +5,6 @@ from fastapi import FastAPI
 
 from app.shingle_scorer import ShingleScorer
 
-
 srvurl = ""
 
 app = FastAPI(
