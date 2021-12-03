@@ -3,7 +3,9 @@
 [![template-fastapi](https://snyk.io/advisor/python/template-fastapi/badge.svg)](https://snyk.io/advisor/python/template-fastapi)
 
 
-# TEMPLATE FASTAPI
+# simiscore-kshingle
+A ML API to compute similarity scores between sentences based on k-shingled substrings. The API uses the packages [`datasketch`](http://ekzhu.com/datasketch/index.html) and [`kshingle`](https://github.com/ulf1/kshingle).
+The deployment is configured for Docker Compose.
 
 
 ## Docker Deployment
@@ -12,9 +14,10 @@ Call Docker Compose
 ```sh
 export NUM_WORKERS=2
 export API_PORT=12345
-docker-compose up
+docker-compose up -f docker-compose.yml up --build
+
 # or as oneliner:
-# NUM_WORKERS=2 API_PORT=12345 docker-compose up
+NUM_WORKERS=2 API_PORT=12345 docker-compose -f docker-compose.yml up --build
 ```
 
 (Start docker daemon before, e.g. `open /Applications/Docker.app` on MacOS).
@@ -23,7 +26,6 @@ Check
 
 ```sh
 curl http://localhost:12345
-curl "http://127.0.0.1:12345/items/5?q=somequery"
 ```
 
 Notes: Only `main.py` is used in `Dockerfile`.
@@ -86,8 +88,8 @@ rm -r .venv
 ## Appendix
 
 ### Support
-Please [open an issue](https://github.com/myorg/template-fastapi/issues/new) for support.
+Please [open an issue](https://github.com/satzbeleg/simiscore-kshingle/issues) for support.
 
 
 ### Contributing
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/myorg/template-fastapi/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/satzbeleg/simiscore-kshingle/compare/).
