@@ -1,33 +1,37 @@
+import uuid
+from typing import Dict, List, Union
+
 from fastapi import FastAPI
 
-# define the server url (excl. hostname:port)
-# srvurl = "/testapi/v1"
+from app.shingle_scorer import ShingleScorer
+
+
 srvurl = ""
 
-# basic information
 app = FastAPI(
-    title="FastAPI template project",
+    title="simiscore-kshingle ML API",
     descriptions=(
-        "This is a FastAPI boilerplate. "
-        "Please adjust it to your needs. "),
+        "ML API to compute similarities jaccard similarities"
+        "between sentences based on hashed k-shingle (character n-grams) sets."
+    ),
     version="0.1.0",
     openapi_url=f"{srvurl}/openapi.json",
     docs_url=f"{srvurl}/docs",
-    redoc_url=f"{srvurl}/redoc"
+    redoc_url=f"{srvurl}/redoc",
 )
+similarity_scorer = ShingleScorer()
 
 
-# specify the endpoints
 @app.get(f"{srvurl}/")
-def read_root():
-    return {"msg": "Hello World"}
+def get_info() -> dict:
+    """Returns basic information about the application"""
+    return {"version": app.version}
 
 
-@app.get(f"{srvurl}/items/")
-async def read_items_null():
-    return {"item_id": None}
-
-
-@app.get(srvurl + "/items/{item_id}")
-async def read_items(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
+@app.post(f"{srvurl}/similarities/", response_model=Dict[str, list])
+async def compute_similarites(
+    query_sents: Union[List[str], Dict[uuid.UUID, str]],
+) -> Dict[str, list]:
+    if isinstance(query_sents, list):
+        query_sents = {uuid.uuid4(): sentence for sentence in query_sents}
+    return similarity_scorer.compute_similarity_matrix(query_sents)
