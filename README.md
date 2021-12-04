@@ -65,8 +65,10 @@ Notes:
 ### Run some requests
 
 ```sh
-curl http://localhost:80
-curl "http://localhost:80/items/5?q=somequery"
+curl -X POST "http://localhost:12345/similarities/" \
+    -H "accept: application/json" \
+    -H "Content-Type: application/json" \
+    -d '["Die Kuh macht muh.", "Die Muh macht kuh."]'
 ```
 
 ### Other commands and help
