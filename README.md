@@ -1,6 +1,5 @@
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/myorg/template-fastapi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/myorg/template-fastapi/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/myorg/template-fastapi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/myorg/template-fastapi/context:python)
-[![template-fastapi](https://snyk.io/advisor/python/template-fastapi/badge.svg)](https://snyk.io/advisor/python/template-fastapi)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/satzbeleg/simiscore-kshingle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/simiscore-kshingle/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/satzbeleg/simiscore-kshingle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/simiscore-kshingle/context:python)
 
 
 # simiscore-kshingle
