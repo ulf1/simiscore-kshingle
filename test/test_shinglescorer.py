@@ -1,7 +1,11 @@
 import pytest
-from starlette.testclient import TestClient
 
-from app.main import app, srvurl
+from app.shingle_scorer import ShingleScorer
+
+
+@pytest.fixture(scope="module")
+def scorer():
+    return ShingleScorer()
 
 
 @pytest.fixture
@@ -35,29 +39,40 @@ def sentences():
     ]
 
 
-def test_get_info():
-    client = TestClient(app)
-    response = client.get(f"{srvurl}/")
-    assert response.status_code == 200
-    assert response.json() == {"version": "0.1.0"}
+def test_empty_query(scorer):
+    result = scorer.compute_similarity_matrix({})
+    assert result == {"ids": [], "matrix": []}
 
 
-def test_docs_reachable():
-    client = TestClient(app)
-    response = client.get(f"{srvurl}/docs")
-    assert response.status_code == 200
+def test_one_query_sentence(scorer, sentences):
+    test_sentence = {0: sentences[0]}
+    result = scorer.compute_similarity_matrix(test_sentence)
+    assert result == {"ids": [0], "matrix": [[1.0]]}
 
 
-def test_post_empty_list():
-    client = TestClient(app)
-    response = client.post(f"{srvurl}/similarities/", json=[])
-    assert response.status_code == 200
-    assert response.json() == {"ids": [], "matrix": []}
+def test_score_for_same_sentence_is_1(scorer, sentences):
+    test_sentences = dict(zip(range(2), sentences[0] * 2))
+    result = scorer.compute_similarity_matrix(test_sentences)["matrix"][0][0]
+    assert result == 1.0
 
 
-def test_post_multiple_sentences(sentences):
-    client = TestClient(app)
-    response = client.post(f"{srvurl}/similarities/", json=sentences)
-    result = response.json()["matrix"]
-    assert response.status_code == 200
-    assert result[0][0] == 1
+def test_score_for_different_sentences_not_1(scorer, sentences):
+    test_sentences = dict(zip(range(2), sentences[:2]))
+    result = scorer.compute_similarity_matrix(test_sentences)["matrix"][0]
+    assert result[1] != 1.0
+    assert result[0] == 1.0
+
+
+def test_that_all_ids_from_input_returned(scorer, sentences):
+    test_sentences = dict(zip(range(len(sentences)), sentences))
+    result = scorer.compute_similarity_matrix(test_sentences)["ids"]
+    expected = list(range(len(sentences)))
+    assert result == expected
+
+
+def test_scores_multiple_sentences(scorer, sentences):
+    test_sentences = dict(zip(range(len(sentences)), sentences))
+    result = scorer.compute_similarity_matrix(test_sentences)["matrix"]
+    eigen_scores = [result[i][i] for i in range(len(result))]
+    assert eigen_scores[0] == 1
+    assert pytest.approx(sum(eigen_scores) == len(sentences))
