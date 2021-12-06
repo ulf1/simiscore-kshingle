@@ -73,8 +73,8 @@ curl -X POST "http://localhost:12345/similarities/" \
 ### Other commands and help
 * Check syntax: `flake8 --ignore=F401 --exclude=$(grep -v '^#' .gitignore | xargs | sed -e 's/ /,/g')`
 * Run Unit Tests: `PYTHONPATH=. pytest`
-- Show the docs: [http://localhost:80/docs`](http://localhost:80/docs`)
-- Show Redoc: [http://localhost:80/redoc](http://localhost:80/redoc)
+- Show the docs: [http://localhost:12345/docs`](http://localhost:12345/docs`)
+- Show Redoc: [http://localhost:12345/redoc](http://localhost:12345/redoc)
 
 
 ### Clean up 
