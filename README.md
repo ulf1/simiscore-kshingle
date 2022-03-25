@@ -1,5 +1,3 @@
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/satzbeleg/simiscore-kshingle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/simiscore-kshingle/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/satzbeleg/simiscore-kshingle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/simiscore-kshingle/context:python)
 
 
 # simiscore-kshingle
