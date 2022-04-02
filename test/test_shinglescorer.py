@@ -75,4 +75,4 @@ def test_scores_multiple_sentences(scorer, sentences):
     result = scorer.compute_similarity_matrix(test_sentences)["matrix"]
     eigen_scores = [result[i][i] for i in range(len(result))]
     assert eigen_scores[0] == 1
-    assert pytest.approx(sum(eigen_scores) == len(sentences))
+    assert pytest.approx(sum(eigen_scores)) == len(sentences)
