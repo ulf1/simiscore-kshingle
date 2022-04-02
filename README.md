@@ -11,12 +11,11 @@ The deployment is configured for Docker Compose.
 Call Docker Compose
 
 ```sh
-export NUM_WORKERS=2
 export API_PORT=12345
 docker-compose -f docker-compose.yml up --build
 
 # or as oneliner:
-NUM_WORKERS=2 API_PORT=12345 docker-compose -f docker-compose.yml up --build
+API_PORT=12345 docker-compose -f docker-compose.yml up --build
 ```
 
 (Start docker daemon before, e.g. `open /Applications/Docker.app` on MacOS).
@@ -50,8 +49,8 @@ pip install -r requirements-dev.txt --no-cache-dir
 
 ```sh
 source .venv/bin/activate
-#uvicorn app.main:app --reload
-gunicorn app.main:app --reload --bind=0.0.0.0:80 \
+# uvicorn app.main:app --reload
+gunicorn app.main:app --reload --bind=0.0.0.0:8080 \
     --worker-class=uvicorn.workers.UvicornH11Worker --workers=2
 ```
 
