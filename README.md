@@ -1,7 +1,12 @@
+[![Join the chat at https://gitter.im/satzbeleg/community](https://badges.gitter.im/satzbeleg/community.svg)](https://gitter.im/satzbeleg/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/satzbeleg/simiscore-kshingle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/simiscore-kshingle/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/satzbeleg/simiscore-kshingle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/satzbeleg/simiscore-kshingle/context:python)
 
 
 # simiscore-kshingle
-A ML API to compute similarity scores between sentences based on k-shingled substrings. The API uses the packages [`datasketch`](http://ekzhu.com/datasketch/index.html) and [`kshingle`](https://github.com/ulf1/kshingle).
+A ML API to compute similarity scores between sentences based on k-shingled substrings. 
+The API is programmed with the [`fastapi` Python package](https://fastapi.tiangolo.com/), 
+uses the packages [`datasketch`](http://ekzhu.com/datasketch/index.html) and [`kshingle`](https://github.com/ulf1/kshingle) to compute similarity scores.
 The deployment is configured for Docker Compose.
 
 
@@ -9,12 +14,11 @@ The deployment is configured for Docker Compose.
 Call Docker Compose
 
 ```sh
-export NUM_WORKERS=2
 export API_PORT=12345
 docker-compose -f docker-compose.yml up --build
 
 # or as oneliner:
-NUM_WORKERS=2 API_PORT=12345 docker-compose -f docker-compose.yml up --build
+API_PORT=12345 docker-compose -f docker-compose.yml up --build
 ```
 
 (Start docker daemon before, e.g. `open /Applications/Docker.app` on MacOS).
@@ -48,16 +52,10 @@ pip install -r requirements-dev.txt --no-cache-dir
 
 ```sh
 source .venv/bin/activate
-#uvicorn app.main:app --reload
-gunicorn app.main:app --reload --bind=0.0.0.0:80 \
+# uvicorn app.main:app --reload
+gunicorn app.main:app --reload --bind=0.0.0.0:8080 \
     --worker-class=uvicorn.workers.UvicornH11Worker --workers=2
 ```
-
-Notes: 
-
-- In the Dockerfile also the argument `--worker-tmp-dir=/dev/shm` is set what default path to a docker container's "in-memory filesystem", i.e. the temporary folder.
-- The `uvicorn.workers.UvicornWorker` worker can use HTTPS certificates by adding the arguments `--keyfile=./key.pem --certfile=./cert.pem` (see [Setup HTTPS for uvicorn](https://www.uvicorn.org/deployment/#running-with-https))
-
 
 ### Run some requests
 
@@ -71,7 +69,7 @@ curl -X POST "http://localhost:12345/similarities/" \
 ### Other commands and help
 * Check syntax: `flake8 --ignore=F401 --exclude=$(grep -v '^#' .gitignore | xargs | sed -e 's/ /,/g')`
 * Run Unit Tests: `PYTHONPATH=. pytest`
-- Show the docs: [http://localhost:12345/docs`](http://localhost:12345/docs`)
+- Show the docs: [http://localhost:12345/docs](http://localhost:12345/docs)
 - Show Redoc: [http://localhost:12345/redoc](http://localhost:12345/redoc)
 
 
