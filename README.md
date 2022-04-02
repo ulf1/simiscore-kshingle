@@ -4,7 +4,9 @@
 
 
 # simiscore-kshingle
-A ML API to compute similarity scores between sentences based on k-shingled substrings. The API uses the packages [`datasketch`](http://ekzhu.com/datasketch/index.html) and [`kshingle`](https://github.com/ulf1/kshingle).
+A ML API to compute similarity scores between sentences based on k-shingled substrings. 
+The API is programmed with the [`fastapi` Python package](https://fastapi.tiangolo.com/), 
+uses the packages [`datasketch`](http://ekzhu.com/datasketch/index.html) and [`kshingle`](https://github.com/ulf1/kshingle) to compute similarity scores.
 The deployment is configured for Docker Compose.
 
 
@@ -55,12 +57,6 @@ gunicorn app.main:app --reload --bind=0.0.0.0:8080 \
     --worker-class=uvicorn.workers.UvicornH11Worker --workers=2
 ```
 
-Notes: 
-
-- In the Dockerfile also the argument `--worker-tmp-dir=/dev/shm` is set what default path to a docker container's "in-memory filesystem", i.e. the temporary folder.
-- The `uvicorn.workers.UvicornWorker` worker can use HTTPS certificates by adding the arguments `--keyfile=./key.pem --certfile=./cert.pem` (see [Setup HTTPS for uvicorn](https://www.uvicorn.org/deployment/#running-with-https))
-
-
 ### Run some requests
 
 ```sh
@@ -73,7 +69,7 @@ curl -X POST "http://localhost:12345/similarities/" \
 ### Other commands and help
 * Check syntax: `flake8 --ignore=F401 --exclude=$(grep -v '^#' .gitignore | xargs | sed -e 's/ /,/g')`
 * Run Unit Tests: `PYTHONPATH=. pytest`
-- Show the docs: [http://localhost:12345/docs`](http://localhost:12345/docs`)
+- Show the docs: [http://localhost:12345/docs](http://localhost:12345/docs)
 - Show Redoc: [http://localhost:12345/redoc](http://localhost:12345/redoc)
 
 
