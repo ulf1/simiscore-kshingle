@@ -1,6 +1,6 @@
 version: '3'
 services:
-  simiscore-syntax:
+  simiscore-kshingle:
     image: evidence-simiscore-kshingle
     build:   # build using Dockfile in this directory
       context: .
