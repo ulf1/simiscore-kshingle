@@ -4,7 +4,7 @@
 
 
 # simiscore-kshingle
-A ML API to compute similarity scores between sentences based on k-shingled substrings. 
+An ML API to compute similarity scores between sentences based on k-shingled substrings. 
 The API is programmed with the [`fastapi` Python package](https://fastapi.tiangolo.com/), 
 uses the packages [`datasketch`](http://ekzhu.com/datasketch/index.html) and [`kshingle`](https://github.com/ulf1/kshingle) to compute similarity scores.
 The deployment is configured for Docker Compose.
