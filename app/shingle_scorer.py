@@ -2,7 +2,7 @@ import uuid
 from typing import Dict, Set
 
 import datasketch
-import kshingle
+import kshingle as ks
 
 
 class ShingleScorer:
@@ -18,7 +18,7 @@ class ShingleScorer:
         ids = list(query_sents.keys())
         minhash_table = []
         for _, sentence in query_sents.items():
-            shingle_set = kshingle.shingleset_k(sentence, self.max_k)
+            shingle_set = ks.shingleset_k(sentence, self.max_k)
             minhash = self._minhash_shingle_set(shingle_set)
             minhash_table.append(minhash)
         similarity_matrix = [
