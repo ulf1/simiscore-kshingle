@@ -39,7 +39,7 @@ def test_get_info():
     client = TestClient(app)
     response = client.get(f"{srvurl}/")
     assert response.status_code == 200
-    assert response.json() == {"version": "0.1.0"}
+    assert response.json().get("version") == "0.1.0"
 
 
 def test_docs_reachable():

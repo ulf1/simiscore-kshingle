@@ -9,8 +9,9 @@ class ShingleScorer:
     """Computes similarity scores between senteces based on hashed k-shingles.
     Default k is 3."""
 
-    def __init__(self, max_k=3):
+    def __init__(self, max_k=3, num_perm=256):
         self.max_k = max_k
+        self.num_perm = num_perm
 
     def compute_similarity_matrix(
         self, query_sents: Dict[uuid.UUID, str]
@@ -34,7 +35,7 @@ class ShingleScorer:
     def _minhash_shingle_set(
         self, shingle_set: Set[str]
     ) -> datasketch.MinHash:
-        minhash = datasketch.MinHash(num_perm=256)
+        minhash = datasketch.MinHash(num_perm=self.num_perm)
         for shingle in shingle_set:
             minhash.update(shingle.encode("utf-8"))
         return minhash
