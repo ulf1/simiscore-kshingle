@@ -9,7 +9,7 @@
             "orcid": "0000-0001-5144-1920"
         }
     ],
-    "title": "simiscore-kshingle",
+    "title": "simiscore-kshingle: ML API for char-based similarities",
     "description": "An ML API to compute similarity scores between shingled sentence examples.",
     "license": "Apache-2.0",
     "upload_type": "software",
