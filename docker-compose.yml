@@ -1,7 +1,7 @@
 version: '3'
 services:
   simiscore-kshingle:
-    image: evidence-simiscore-kshingle
+    image: simiscore-kshingle
     build:   # build using Dockfile in this directory
       context: .
       dockerfile: Dockerfile
